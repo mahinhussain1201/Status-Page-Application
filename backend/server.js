@@ -7,25 +7,48 @@ require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://status-page-application-5814.vercel.app'
+  ];
+  
+  const io = socketIo(server, {
     cors: {
-        origin: 'http://localhost:3000' || 'https://status-page-application-5814.vercel.app',
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization']
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization']
     }
-});
-
+  });
+  
 // Store io instance globally
 app.set('io', io);
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000' || 'https://status-page-application-5814.vercel.app',
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            'http://localhost:3000',
+            'https://status-page-application-5814.vercel.app'
+        ];
+
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 // MongoDB Connection
