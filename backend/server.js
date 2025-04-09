@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: 'http://localhost:3000' || 'https://status-page-application-5814.vercel.app',
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization']
@@ -21,7 +21,7 @@ app.set('io', io);
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3000' || 'https://status-page-application-5814.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
