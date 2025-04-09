@@ -21,7 +21,7 @@ const IncidentManagement = () => {
     const [serviceStatus, setServiceStatus] = useState({});
 
     useEffect(() => {
-        const socket = io('http://localhost:8000');
+        const socket = io('https://status-page-application-1-fy4x.onrender.com');
         fetchIncidents();
         fetchServices();
 
@@ -36,7 +36,7 @@ const IncidentManagement = () => {
     const fetchIncidents = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:8000/api/incidents');
+            const response = await axios.get('https://status-page-application-1-fy4x.onrender.com/api/incidents');
             setIncidents(response.data);
             setError('');
         } catch (error) {
@@ -49,7 +49,7 @@ const IncidentManagement = () => {
     const fetchServices = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:8000/api/services');
+            const response = await axios.get('https://status-page-application-1-fy4x.onrender.com/api/services');
             setServices(response.data);
             
             // Create a map of service status
@@ -79,12 +79,12 @@ const IncidentManagement = () => {
                 services: selectedServices // Use selectedServices array directly
             };
             
-            const response = await axios.post('http://localhost:8000/api/incidents', incidentData);
+            const response = await axios.post('https://status-page-application-1-fy4x.onrender.com/api/incidents', incidentData);
             
             // Update affected services status only after incident is created
             if (response.data) {
                 for (const serviceId of selectedServices) {
-                    await axios.put(`http://localhost:8000/api/services/${serviceId}`, {
+                    await axios.put(`https://status-page-application-1-fy4x.onrender.com/api/services/${serviceId}`, {
                         status: getServiceStatusFromImpact(newIncident.impact)
                     });
                 }
@@ -112,7 +112,7 @@ const IncidentManagement = () => {
     const addUpdate = async (incidentId) => {
         try {
             setLoading(true);
-            await axios.post(`http://localhost:8000/api/incidents/${incidentId}/updates`, {
+            await axios.post(`https://status-page-application-1-fy4x.onrender.com/api/incidents/${incidentId}/updates`, {
                 message: updateMessage,
                 status: 'Update'
             });
@@ -129,11 +129,11 @@ const IncidentManagement = () => {
     const resolveIncident = async (incidentId, affectedServices) => {
         try {
             setLoading(true);
-            await axios.post(`http://localhost:8000/api/incidents/${incidentId}/resolve`);
+            await axios.post(`https://status-page-application-1-fy4x.onrender.com/api/incidents/${incidentId}/resolve`);
             
             // Reset affected services status to Operational
             for (const serviceId of affectedServices) {
-                await axios.put(`http://localhost:8000/api/services/${serviceId}`, {
+                await axios.put(`https://status-page-application-1-fy4x.onrender.com/api/services/${serviceId}`, {
                     status: 'Operational'
                 });
             }

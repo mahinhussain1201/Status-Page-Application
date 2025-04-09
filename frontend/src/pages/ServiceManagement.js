@@ -14,7 +14,7 @@ const ServiceManagement = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const socket = io('http://localhost:8000');
+        const socket = io('https://status-page-application-1-fy4x.onrender.com');
         fetchServices();
 
         socket.on('serviceUpdate', (updatedService) => {
@@ -26,7 +26,7 @@ const ServiceManagement = () => {
 
     const fetchServices = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/services');
+            const response = await axios.get('https://status-page-application-1-fy4x.onrender.com/api/services');
             setServices(response.data);
         } catch (error) {
             setError('Failed to fetch services');
@@ -36,7 +36,7 @@ const ServiceManagement = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8000/api/services', newService);
+            await axios.post('https://status-page-application-1-fy4x.onrender.com/api/services', newService);
             setNewService({
                 name: '',
                 description: '',
@@ -50,7 +50,7 @@ const ServiceManagement = () => {
 
     const updateStatus = async (serviceId, newStatus) => {
         try {
-            await axios.put(`http://localhost:8000/api/services/${serviceId}`, {
+            await axios.put(`https://status-page-application-1-fy4x.onrender.com/api/services/${serviceId}`, {
                 status: newStatus
             });
             fetchServices();
@@ -62,7 +62,7 @@ const ServiceManagement = () => {
     const deleteService = async (serviceId) => {
         if (window.confirm('Are you sure you want to delete this service?')) {
             try {
-                await axios.delete(`http://localhost:8000/api/services/${serviceId}`);
+                await axios.delete(`https://status-page-application-1-fy4x.onrender.com/api/services/${serviceId}`);
                 fetchServices();
             } catch (error) {
                 setError('Failed to delete service');

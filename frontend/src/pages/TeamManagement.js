@@ -22,7 +22,7 @@ const TeamManagement = () => {
 
     const fetchTeams = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/teams');
+            const response = await axios.get('https://status-page-application-1-fy4x.onrender.com/api/teams');
             setTeams(response.data);
         } catch (error) {
             setError('Failed to fetch teams');
@@ -31,7 +31,7 @@ const TeamManagement = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/teams/get-users');
+            const response = await axios.get('https://status-page-application-1-fy4x.onrender.com/api/teams/get-users');
             setUsers(response.data);
         } catch (error) {
             setError('Failed to fetch users');
@@ -41,7 +41,7 @@ const TeamManagement = () => {
     const handleCreateTeam = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8000/api/teams', newTeam);
+            await axios.post('https://status-page-application-1-fy4x.onrender.com/api/teams', newTeam);
             setNewTeam({ name: '', description: '' });
             fetchTeams();
             setError('');
@@ -52,7 +52,7 @@ const TeamManagement = () => {
 
     const handleAddMember = async (teamId, userId, role = 'member') => {
         try {
-            await axios.post(`http://localhost:8000/api/teams/${teamId}/members`, {
+            await axios.post(`https://status-page-application-1-fy4x.onrender.com/api/teams/${teamId}/members`, {
                 userId,
                 role
             });
@@ -65,7 +65,7 @@ const TeamManagement = () => {
 
     const handleRemoveMember = async (teamId, userId) => {
         try {
-            await axios.delete(`http://localhost:8000/api/teams/${teamId}/members/${userId}`);
+            await axios.delete(`https://status-page-application-1-fy4x.onrender.com/api/teams/${teamId}/members/${userId}`);
             fetchTeams();
             setError('');
         } catch (error) {
@@ -76,7 +76,7 @@ const TeamManagement = () => {
     const handleDeleteTeam = async (teamId) => {
         if (window.confirm('Are you sure you want to delete this team?')) {
             try {
-                await axios.delete(`http://localhost:8000/api/teams/${teamId}`);
+                await axios.delete(`https://status-page-application-1-fy4x.onrender.com/api/teams/${teamId}`);
                 fetchTeams();
                 setError('');
             } catch (error) {
@@ -87,7 +87,7 @@ const TeamManagement = () => {
 
     const handleUpdateTeam = async (teamId, updates) => {
         try {
-            await axios.put(`http://localhost:8000/api/teams/${teamId}`, updates);
+            await axios.put(`https://status-page-application-1-fy4x.onrender.com/api/teams/${teamId}`, updates);
             fetchTeams();
             setError('');
         } catch (error) {

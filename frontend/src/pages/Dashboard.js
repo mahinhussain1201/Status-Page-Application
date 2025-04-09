@@ -13,13 +13,13 @@ const Dashboard = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const socket = io('http://localhost:8000');
+        const socket = io('https://status-page-application-1-fy4x.onrender.com');
 
         const fetchData = async () => {
             try {
                 const [servicesRes, incidentsRes] = await Promise.all([
-                    axios.get('http://localhost:8000/api/services'),
-                    axios.get('http://localhost:8000/api/incidents')
+                    axios.get('https://status-page-application-1-fy4x.onrender.com/api/services'),
+                    axios.get('https://status-page-application-1-fy4x.onrender.com/api/incidents')
                 ]);
 
                 setServices(servicesRes.data);

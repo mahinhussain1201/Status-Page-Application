@@ -10,7 +10,7 @@ const PublicStatusPage = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const socket = io('http://localhost:8000');
+        const socket = io('https://status-page-application-1-fy4x.onrender.com');
         fetchData();
 
         socket.on('serviceUpdate', () => fetchData());
@@ -22,8 +22,8 @@ const PublicStatusPage = () => {
     const fetchData = async () => {
         try {
             const [servicesRes, incidentsRes] = await Promise.all([
-                axios.get(`http://localhost:8000/api/services/public/${orgSlug}`),
-                axios.get(`http://localhost:8000/api/incidents/public/${orgSlug}`)
+                axios.get(`https://status-page-application-1-fy4x.onrender.com/api/services/public/${orgSlug}`),
+                axios.get(`https://status-page-application-1-fy4x.onrender.com/api/incidents/public/${orgSlug}`)
             ]);
             setServices(servicesRes.data);
             setIncidents(incidentsRes.data);
