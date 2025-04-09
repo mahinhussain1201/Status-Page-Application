@@ -353,9 +353,9 @@ const IncidentManagement = () => {
                                                 {incident.updates.map((update, index) => (
                                                     <div key={index} className="update-item">
                                                         <div className="flex justify-between">
-                                                            <span className="text-gray-600">
+                                                            {/* <span className="text-gray-600">
                                                                 {new Date(update.timestamp).toLocaleString()}
-                                                            </span>
+                                                            </span> */}
                                                             <span className={`badge ${getStatusColor(update.status)}`}>
                                                                 {update.status}
                                                             </span>
